@@ -1,7 +1,5 @@
 package number_names
 
-import java.lang.IllegalArgumentException
-
 /**
  * created 2019/03/06
  * @author tomohiro.sano
@@ -35,23 +33,27 @@ class NumberToKanji {
                 9 to "九"
         )
 
-        val DIGITS_KANJI_MAP = mapOf(
+        val CYCLE_DIGITS_KANJI_MAP = mapOf(
                 1000 to "千",
                 100 to "百",
                 10 to "十"
         )
+
+        val LARGE_DEGITS_KANJI_MAP = mapOf(
+                100000000 to "億",
+                10000 to "万"
+        )
     }
 
     fun convert(number: Int) :String? {
-        if (number >= 100000000) {
-            return convert(number / 100000000) + "億" + convert(number % 100000000)
+        for (largeDigitsKanjiEntry in LARGE_DEGITS_KANJI_MAP) {
+            if (number >= largeDigitsKanjiEntry.key) {
+                return convert(number / largeDigitsKanjiEntry.key) + largeDigitsKanjiEntry.value + convert(number % largeDigitsKanjiEntry.key)
+            }
         }
-        if (number >= 10000) {
-            return convert(number / 10000) + "万" + convert(number % 10000)
-        }
-        for (digitsKanjiEntry in DIGITS_KANJI_MAP) {
-            if (number >= digitsKanjiEntry.key) {
-                return HEADER_NUMBER_KANJI_MAP[number / digitsKanjiEntry.key] + digitsKanjiEntry.value + convert(number % digitsKanjiEntry.key)
+        for (cycleDigitsKanjiEntry in CYCLE_DIGITS_KANJI_MAP) {
+            if (number >= cycleDigitsKanjiEntry.key) {
+                return HEADER_NUMBER_KANJI_MAP[number / cycleDigitsKanjiEntry.key] + cycleDigitsKanjiEntry.value + convert(number % cycleDigitsKanjiEntry.key)
             }
         }
         return SINGLE_NUMBER_KANJI_MAP[number]
