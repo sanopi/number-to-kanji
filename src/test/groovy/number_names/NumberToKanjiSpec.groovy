@@ -54,15 +54,21 @@ class NumberToKanjiSpec extends Specification {
     }
 
     @Unroll
-    def "五桁の数字(#number)を#kanjiに変換する"() {
+    def "五桁〜八桁の数字(#number)を#kanjiに変換する"() {
         expect:
         new NumberToKanji().convert(number) == kanji
 
         where:
-        number | kanji
-        10000  | "一万"
-        20000  | "二万"
-        22000  | "二万二千"
-        64572  | "六万四千五百七十二"
+        number   | kanji
+        10000    | "一万"
+        20000    | "二万"
+        22000    | "二万二千"
+        64572    | "六万四千五百七十二"
+        100000   | "十万"
+        673059   | "六十七万三千五十九"
+        1000000  | "百万"
+        3274062  | "三百二十七万四千六十二"
+        10000000 | "千万"
+        25463754 | "二千五百四十六万三千七百五十四"
     }
 }
