@@ -26,4 +26,18 @@ class NumberToKanjiSpec extends Specification {
         8      | "八"
         9      | "九"
     }
+
+    @Unroll
+    def "二桁の数字(#number)を#kanjiに変換する"() {
+        expect:
+        new NumberToKanji().convert(number) == kanji
+
+        where:
+        number | kanji
+        10 | "十"
+        11 | "十一"
+        20 | "二十"
+        54 | "五十四"
+        99 | "九十九"
+    }
 }
