@@ -43,6 +43,9 @@ class NumberToKanji {
     }
 
     fun convert(number: Int) :String? {
+        if (number >= 10000) {
+            return convert(number / 10000) + "万" + convert(number % 10000)
+        }
         for (digitsKanjiEntry in DIGITS_KANJI_MAP) {
             if (number >= digitsKanjiEntry.key) {
                 return HEADER_NUMBER_KANJI_MAP[number / digitsKanjiEntry.key] + digitsKanjiEntry.value + convert(number % digitsKanjiEntry.key)

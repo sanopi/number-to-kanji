@@ -53,4 +53,16 @@ class NumberToKanjiSpec extends Specification {
         8453   | "八千四百五十三"
     }
 
+    @Unroll
+    def "五桁の数字(#number)を#kanjiに変換する"() {
+        expect:
+        new NumberToKanji().convert(number) == kanji
+
+        where:
+        number | kanji
+        10000  | "一万"
+        20000  | "二万"
+        22000  | "二万二千"
+        64572  | "六万四千五百七十二"
+    }
 }
