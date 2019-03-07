@@ -1,5 +1,7 @@
 package number_names
 
+import java.lang.IllegalArgumentException
+
 /**
  * created 2019/03/06
  * @author tomohiro.sano
@@ -21,6 +23,7 @@ class NumberToKanji {
         )
 
         val HEADER_NUMBER_KANJI_MAP = mapOf(
+                0 to "",
                 1 to "",
                 2 to "二",
                 3 to "三",
@@ -31,16 +34,18 @@ class NumberToKanji {
                 8 to "八",
                 9 to "九"
         )
+
+        val DIGITS_KANJI_MAP = mapOf(
+                100 to "百",
+                10 to "十"
+        )
     }
 
     fun convert(number: Int) :String? {
-        if (number >= 100) {
-            return "${HEADER_NUMBER_KANJI_MAP[number / 100]}百${convert(number % 100)}"
-        }
-        if (number >= 10) {
-            val tenDigits = number / 10
-            val onesDigits = number % 10
-            return "${HEADER_NUMBER_KANJI_MAP[tenDigits]}十${SINGLE_NUMBER_KANJI_MAP[onesDigits]}"
+        for (digitsKanjiEntry in DIGITS_KANJI_MAP) {
+            if (number >= digitsKanjiEntry.key) {
+                return HEADER_NUMBER_KANJI_MAP[number / digitsKanjiEntry.key] + digitsKanjiEntry.value + convert(number % digitsKanjiEntry.key)
+            }
         }
         return SINGLE_NUMBER_KANJI_MAP[number]
     }
