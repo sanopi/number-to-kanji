@@ -43,6 +43,9 @@ class NumberToKanji {
     }
 
     fun convert(number: Int) :String? {
+        if (number >= 100000000) {
+            return convert(number / 100000000) + "億" + convert(number % 100000000)
+        }
         if (number >= 10000) {
             return convert(number / 10000) + "万" + convert(number % 10000)
         }

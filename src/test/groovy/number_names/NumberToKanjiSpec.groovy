@@ -71,4 +71,17 @@ class NumberToKanjiSpec extends Specification {
         10000000 | "千万"
         25463754 | "二千五百四十六万三千七百五十四"
     }
+
+    @Unroll
+    def "九桁の数字(#number)を#kanjiに変換する"() {
+        expect:
+        new NumberToKanji().convert(number) == kanji
+
+        where:
+        number    | kanji
+        100000000 | "一億"
+        100000001 | "一億一"
+        100010001 | "一億一万一"
+        960371895 | "九億六千三十七万千八百九十五"
+    }
 }
