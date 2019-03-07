@@ -34,6 +34,9 @@ class NumberToKanji {
     }
 
     fun convert(number: Int) :String? {
+        if (number >= 100) {
+            return "${HEADER_NUMBER_KANJI_MAP[number / 100]}百${convert(number % 100)}"
+        }
         if (number >= 10) {
             val tenDigits = number / 10
             val onesDigits = number % 10
