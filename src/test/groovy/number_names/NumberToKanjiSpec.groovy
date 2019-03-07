@@ -28,7 +28,7 @@ class NumberToKanjiSpec extends Specification {
     }
 
     @Unroll
-    def "二桁の数字(#number)を#kanjiに変換する"() {
+    def "二桁〜四桁の数字(#number)を#kanjiに変換する"() {
         expect:
         new NumberToKanji().convert(number) == kanji
 
@@ -39,15 +39,6 @@ class NumberToKanjiSpec extends Specification {
         20     | "二十"
         54     | "五十四"
         99     | "九十九"
-    }
-
-    @Unroll
-    def "三桁の数字(#number)を#kanjiに変換する"() {
-        expect:
-        new NumberToKanji().convert(number) == kanji
-
-        where:
-        number | kanji
         100    | "百"
         101    | "百一"
         111    | "百十一"
@@ -55,5 +46,11 @@ class NumberToKanjiSpec extends Specification {
         261    | "二百六十一"
         830    | "八百三十"
         914    | "九百十四"
+        1000   | "千"
+        2200   | "二千二百"
+        2020   | "二千二十"
+        2002   | "二千二"
+        8453   | "八千四百五十三"
     }
+
 }

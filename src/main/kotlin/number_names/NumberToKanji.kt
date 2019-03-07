@@ -36,6 +36,7 @@ class NumberToKanji {
         )
 
         val DIGITS_KANJI_MAP = mapOf(
+                1000 to "千",
                 100 to "百",
                 10 to "十"
         )
